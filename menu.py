@@ -330,28 +330,3 @@ class MenuSeparator:
 
     def __init__(self):
         pass
-
-
-# ================== Example Usage ==================
-if __name__ == '__main__':
-    menu = Menu("Test Menu", Color.LIGHTBLUE_EX, Color.CYAN, Color.LIGHTBLACK_EX, True)
-    menu.add_option("Option 1", lambda: print("Action 1"))
-    menu.add_option("Option 2", lambda: print("Action 2"))
-
-    # Add a separator at the root
-    menu.add_separator()
-
-    # Create a folder with nested elements
-    folder1 = menu.set_folder("Folder 1")
-    menu.add_option("Option in Folder 1", lambda: print("Action in Folder 1"), folder1)
-    menu.add_separator(folder1)
-    subfolder = menu.set_folder("Subfolder", folder1)
-    menu.add_option("Option in Subfolder", lambda: print("Action in Subfolder"), subfolder)
-
-    # Create an empty folder (will display as <empty>)
-    menu.set_folder("Empty Folder")
-
-    # Run the menu in collapsed mode
-    menu.show(collapsed=True, clear_console=True)
-    # To test expanded mode, use:
-    # menu.show(collapsed=False)
