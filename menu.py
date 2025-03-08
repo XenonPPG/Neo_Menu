@@ -28,9 +28,9 @@ class Menu:
         """
         self.__items__ = []
         self.set_label(label, label_color)
-        self.__label_color__ = label_color
-        self.__option_color__ = option_color
-        self.__aux_color__ = aux_color
+        self.label_color = label_color
+        self.option_color = option_color
+        self.aux_color = aux_color
         self.__include_exit__ = include_exit
         self.__exit_included__ = False
 
@@ -157,28 +157,28 @@ class Menu:
                 counter = 0
                 for item in items:
                     if isinstance(item, MenuSeparator):
-                        print(f"{indent}{self.__aux_color__}- - -{Color.RESET}")
+                        print(f"{indent}{self.aux_color}- - -{Color.RESET}")
                     elif isinstance(item, MenuFolder):
                         if item.children:
                             counter += 1
                             number = (f"{parent_number}{counter}" if parent_number == ""
                                       else f"{parent_number}.{counter}")
-                            print(f"{indent}{self.__aux_color__}{number}. "
-                                  f"{self.__option_color__}[{item.name}]{Color.RESET}")
+                            print(f"{indent}{self.aux_color}{number}. "
+                                  f"{self.option_color}[{item.name}]{Color.RESET}")
                             recursive_print(item.children, number, depth + 1)
                         else:
-                            print(f"{indent}{self.__option_color__}[{item.name}]{Color.RESET} "
-                                  f"{self.__aux_color__}<empty>{Color.RESET}")
+                            print(f"{indent}{self.option_color}[{item.name}]{Color.RESET} "
+                                  f"{self.aux_color}<empty>{Color.RESET}")
                     elif isinstance(item, MenuOption):
                         counter += 1
                         number = (f"{parent_number}{counter}" if parent_number == ""
                                   else f"{parent_number}.{counter}")
-                        print(f"{indent}{self.__aux_color__}{number}. "
-                              f"{self.__option_color__}{item.name}{Color.RESET}")
+                        print(f"{indent}{self.aux_color}{number}. "
+                              f"{self.option_color}{item.name}{Color.RESET}")
                         selectable[number] = item
 
             recursive_print(self.__items__, "", 0)
-            selection = input(f"\n{self.__aux_color__}Select an option: {Color.RESET}")
+            selection = input(f"\n{self.aux_color}Select an option: {Color.RESET}")
             if selection in selectable:
                 chosen_option = selectable[selection]
                 self.__clear_console__()
@@ -210,35 +210,35 @@ class Menu:
                 current_items = items
 
             if not current_items:
-                print(f"{self.__aux_color__}<empty>{Color.RESET}")
-                input(f"\n{self.__aux_color__}Press Enter to go back...{Color.RESET}")
+                print(f"{self.aux_color}<empty>{Color.RESET}")
+                input(f"\n{self.aux_color}Press Enter to go back...{Color.RESET}")
                 return "back"
 
             # In nested levels, display "0. Back" at the beginning.
             if path:
-                print(f"{self.__aux_color__}0. Back{Color.RESET}")
+                print(f"{self.aux_color}0. Back{Color.RESET}")
 
             mapping = {}
             num = 1
             for item in current_items:
                 if isinstance(item, MenuSeparator):
-                    print(f"{self.__aux_color__}- - -{Color.RESET}")
+                    print(f"{self.aux_color}- - -{Color.RESET}")
                 else:
                     if isinstance(item, MenuFolder):
                         if not item.children:
-                            print(f"{self.__aux_color__}{num}. "
-                                  f"{self.__option_color__}[{item.name}]{Color.RESET} "
-                                  f"{self.__aux_color__}<empty>{Color.RESET}")
+                            print(f"{self.aux_color}{num}. "
+                                  f"{self.option_color}[{item.name}]{Color.RESET} "
+                                  f"{self.aux_color}<empty>{Color.RESET}")
                         else:
-                            print(f"{self.__aux_color__}{num}. "
-                                  f"{self.__option_color__}[{item.name}]{Color.RESET}")
+                            print(f"{self.aux_color}{num}. "
+                                  f"{self.option_color}[{item.name}]{Color.RESET}")
                     elif isinstance(item, MenuOption):
-                        print(f"{self.__aux_color__}{num}. "
-                              f"{self.__option_color__}{item.name}{Color.RESET}")
+                        print(f"{self.aux_color}{num}. "
+                              f"{self.option_color}{item.name}{Color.RESET}")
                     mapping[num] = item
                     num += 1
 
-            selection = input(f"\n{self.__aux_color__}Select an option: {Color.RESET}")
+            selection = input(f"\n{self.aux_color}Select an option: {Color.RESET}")
             if path and selection == "0":
                 return "back"
 
